@@ -2,46 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
-<body>
+<body class="container mt-3" style="background-color: aliceblue">
+
+    <h3 class="text-center">Django Filtering with Pagination</h3>
 
     {% load myapp_extras %}
 
 
     <form method="get">
         {{ filtered_persons.form.as_p }}
-        <input type="submit" value="Press">
+        <input type="submit" class="btn btn-info" value="Search">
     </form>
-
+<br>
     {% for person in person_page_obj %}
         <h2>
-            {{ person.name }}
-            <br>
-            {{ person.gender }}
-            <br>
-            {{ person.age }}
-            <br>
+            {{ person.name }} - {{ person.gender }} - {{ person.age }}
         </h2>
     {% endfor %}
-
-    <div class="pagination">
-        <span class="step-links">
+<!-- <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul> -->
+    <ul class="pagination">
+        <li class="page-item">
             {% if person_page_obj.has_previous %}
-                <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; First</a>
-                <a href="{% my_url person_page_obj.previous_page_number 'page' request.GET.urlencode %}">Previous</a>
+                <a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">First</a>
+                <a class="page-link" href="{% my_url person_page_obj.previous_page_number 'page' request.GET.urlencode %}">Previous</a>
             {% endif %}
+        </li>
 
-            <span class="current">
-                Page {{person_page_obj.number}} of {{person_page_obj.paginator.num_pages}}.
-            </span>
+        <!-- <li class="page-item">
+            <a class="page-link">Page {{person_page_obj.number}} of {{person_page_obj.paginator.num_pages}}.
+            </a>
+        </li> -->
 
+        <li class="page-item">
+            <a class="page-link" href="{% my_url person_page_obj.number 'page' request.GET.urlencode %}">{{person_page_obj.number}}
+            </a>
+        </li>
+
+        <li>
             {% if person_page_obj.has_next %}
-                <a href="{% my_url person_page_obj.next_page_number 'page' request.GET.urlencode %}">Next</a>
-                <a href="{% my_url person_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">&raquo; Last</a>
+                <a class="page-link" href="{% my_url person_page_obj.next_page_number 'page' request.GET.urlencode %}">Next</a>
+                <a class="page-link" href="{% my_url person_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a>
             {% endif %}
-        </span>
-    </div>
+        </li>
+    </ul>
 
 </body>
 </html>

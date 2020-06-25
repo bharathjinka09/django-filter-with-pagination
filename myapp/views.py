@@ -8,6 +8,7 @@ from .filters import PersonFilter
 
 # Create your views here.
 
+
 def show_all_persons_page(request):
     context = {}
 
