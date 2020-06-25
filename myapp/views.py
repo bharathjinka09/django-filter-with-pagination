@@ -26,3 +26,7 @@ def show_all_persons_page(request):
     context['person_page_obj'] = person_page_obj
 
     return render(request, 'myapp/show_all_persons_page.html', context=context)
+
+
+def handler404(request, exception):
+    return render(request, '404.html')

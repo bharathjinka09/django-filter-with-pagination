@@ -23,9 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#m)-utyqf)5_&a$ppltc6wj3sh39)5$l3&$ot26%ikw6#kocx_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Make Debug false if u want to see custom 404 page
+DEBUG = False
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
